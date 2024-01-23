@@ -1,6 +1,6 @@
 module github.com/sunglim/chart-server
 
-go 1.21.6
+go 1.23
 
 require (
 	gorm.io/driver/sqlite v1.5.4
