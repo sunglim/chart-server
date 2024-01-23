@@ -5,10 +5,10 @@ import (
 	"net/http"
 )
 
-func Run() {
+func Run() error {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Welcome!")
 	})
 
-	http.ListenAndServe(":8080", nil)
+	return http.ListenAndServe(":8080", nil)
 }
