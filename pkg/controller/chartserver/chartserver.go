@@ -11,7 +11,7 @@ import (
 )
 
 func RunOrDie() {
-	err := database.CreateDatabase()
+	_, err := database.CreateDatabase()
 	if err != nil {
 		log.Fatal(err)
 	}

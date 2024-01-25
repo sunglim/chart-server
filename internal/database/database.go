@@ -6,16 +6,25 @@ import (
 )
 
 // CreateDatabase creates the database.
-func CreateDatabase() error {
+func CreateDatabase() (*gorm.DB, error) {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	err = db.AutoMigrate(&HistoricalData{})
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return db, nil
+}
+
+// InsertHistoricalData inserts historical data into the database.
+func InsertHistoricalData(db *gorm.DB, data *HistoricalData) {
+	db.Create(data)
+}
+
+func InsertHistoricalDatas(db *gorm.DB, datas []HistoricalData) {
+	db.CreateInBatches(datas, 100)
 }
