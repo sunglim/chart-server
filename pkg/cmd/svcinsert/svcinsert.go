@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/sunglim/chart-server/pkg/controller/svcinsert"
 )
 
 func NewCommand() *cobra.Command {
@@ -12,10 +13,32 @@ func NewCommand() *cobra.Command {
 		Short: "Insert SVC file",
 		Run: func(cmd *cobra.Command, args []string) {
 			fileName := args[0]
-			fmt.Printf("%s\n", fileName)
-			fmt.Println("Not implemented")
+			err := NewSvcInsert(fileName).Run()
+			if err != nil {
+				panic(err)
+			}
 		},
 	}
 
 	return rootCmd
+}
+
+type SvcInsert struct {
+	fileName string
+}
+
+func NewSvcInsert(fileName string) *SvcInsert {
+	return &SvcInsert{
+		fileName: fileName,
+	}
+}
+
+func (s *SvcInsert) Run() error {
+	err := svcinsert.NewSvcInsert(s.fileName).Run()
+	if err != nil {
+		fmt.Println("Insert SVC file", "error", err)
+	}
+
+	fmt.Println("Insert SVC file")
+	return nil
 }

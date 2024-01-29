@@ -10,7 +10,7 @@
 			"request": "launch",
 			"mode": "debug",
 			"program": "${workspaceFolder}/cmd/svc-insert/svc-insert.go",
-			"args": ["appdata/MSFT.csv"],
+			"args": ["MSFT.csv"],
 		}
 	]
 }
