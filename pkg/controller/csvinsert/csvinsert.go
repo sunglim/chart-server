@@ -1,4 +1,4 @@
-package svcinsert
+package csvinsert
 
 import (
 	"fmt"

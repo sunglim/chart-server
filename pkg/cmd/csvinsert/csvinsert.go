@@ -1,15 +1,15 @@
-package svcinsert
+package csvinsert
 
 import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"github.com/sunglim/chart-server/pkg/controller/svcinsert"
+	"github.com/sunglim/chart-server/pkg/controller/csvinsert"
 )
 
 func NewCommand() *cobra.Command {
 	var rootCmd = &cobra.Command{
-		Use:   "svcinsert",
+		Use:   "csvinsert",
 		Short: "Insert SVC file",
 		Run: func(cmd *cobra.Command, args []string) {
 			fileName := args[0]
@@ -34,7 +34,7 @@ func NewSvcInsert(fileName string) *SvcInsert {
 }
 
 func (s *SvcInsert) Run() error {
-	err := svcinsert.NewSvcInsert(s.fileName).Run()
+	err := csvinsert.NewSvcInsert(s.fileName).Run()
 	if err != nil {
 		fmt.Println("Insert SVC file", "error", err)
 	}

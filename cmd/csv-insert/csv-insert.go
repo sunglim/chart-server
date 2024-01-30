@@ -1,8 +1,8 @@
 package main
 
-import "github.com/sunglim/chart-server/pkg/cmd/svcinsert"
+import "github.com/sunglim/chart-server/pkg/cmd/csvinsert"
 
 func main() {
-	cmd := svcinsert.NewCommand()
+	cmd := csvinsert.NewCommand()
 	cmd.Execute()
 }
