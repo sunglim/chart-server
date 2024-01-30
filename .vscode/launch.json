@@ -9,7 +9,7 @@
 			"type": "go",
 			"request": "launch",
 			"mode": "debug",
-			"program": "${workspaceFolder}/cmd/svc-insert/svc-insert.go",
+			"program": "${workspaceFolder}/cmd/csv-insert/csv-insert.go",
 			"args": ["MSFT.csv"],
 		}
 	]
