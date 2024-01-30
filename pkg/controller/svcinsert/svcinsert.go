@@ -17,7 +17,11 @@ func NewSvcInsert(fileName string) *SvcInsert {
 }
 
 func (s *SvcInsert) Run() error {
-	database.CreateDatabase()
+	db, err := database.CreateDatabase()
+	if err != nil {
+		fmt.Println(err.Error())
+		return err
+	}
 
 	records, err := FromCSVFile(s.fileName)
 	if err != nil {
@@ -25,10 +29,9 @@ func (s *SvcInsert) Run() error {
 		return err
 	}
 
-	for record := range records {
-		fmt.Println(records[record])
-		//	database.Insert(records[record])
-	}
+	database.InsertHistoricalDatas(db, records)
+
+	fmt.Println("records: ", len(records))
 
 	return nil
 }
