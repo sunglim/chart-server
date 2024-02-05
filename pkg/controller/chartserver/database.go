@@ -7,10 +7,10 @@ import (
 	"gorm.io/gorm"
 )
 
-var defaultDatabase = CreateDatabase()
+var defaultDatabase = CreateDatabase("./database.db")
 
-func CreateDatabase() *Database {
-	db, err := database.CreateDatabase()
+func CreateDatabase(path string) *Database {
+	db, err := database.CreateDatabaseFromFilePath(path)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -33,14 +33,14 @@ func InsertHistoricalDatas(db *gorm.DB, datas []HistoricalData) {
 	db.CreateInBatches(datas, 100)
 }
 
-func GetHistoricalDatas(db *gorm.DB) []HistoricalData {
+func GetHistoricalDatas(db *gorm.DB, symbol string) []HistoricalData {
 	var datas []HistoricalData
-	db.Find(&datas)
+	db.Find(&datas, "symbol = ?", symbol)
 	return datas
 }
 
-func GetClosingPrices(db *gorm.DB) []float64 {
-	var datas = GetHistoricalDatas(db)
+func GetClosingPrices(db *gorm.DB, symbol string) []float64 {
+	var datas = GetHistoricalDatas(db, symbol)
 	var prices []float64
 	for _, data := range datas {
 		prices = append(prices, data.Close)

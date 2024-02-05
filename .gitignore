@@ -5,6 +5,7 @@
 *.out
 *.so
 *.test
+__debug_bin
 appdata
 cmd/csv-insert/test.db
 go.work
