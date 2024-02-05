@@ -3,14 +3,15 @@ package chartserver
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/cinar/indicator"
 	"github.com/sunglim/chart-server/internal/database"
+	"github.com/sunglim/chart-server/pkg/cmd/chartserver"
 )
 
 // There might be a better pattern for http routing.
-
-func serverRun() error {
+func serverRun(opts *chartserver.Options) error {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		Rsi(w)
 	})
@@ -18,8 +19,9 @@ func serverRun() error {
 		Rsi(w)
 	})
 
-	fmt.Println(":8080")
-	return http.ListenAndServe(":8080", nil)
+	addr := ":" + strconv.Itoa(opts.Port)
+	fmt.Printf("Serving on %s...", addr)
+	return http.ListenAndServe(addr, nil)
 }
 
 func Rsi(w http.ResponseWriter) {
