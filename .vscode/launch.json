@@ -5,12 +5,19 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Run svc-insert",
+			"name": "svc-insert RUN",
 			"type": "go",
 			"request": "launch",
 			"mode": "debug",
 			"program": "${workspaceFolder}/cmd/csv-insert/csv-insert.go",
 			"args": ["MSFT.csv"],
+		},
+		{
+			"name": "svc-server RUN",
+			"type": "go",
+			"request": "launch",
+			"mode": "debug",
+			"program": "${workspaceFolder}/cmd/chart-server/chart-server.go",
 		}
 	]
 }
