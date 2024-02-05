@@ -10,7 +10,8 @@
 			"request": "launch",
 			"mode": "debug",
 			"program": "${workspaceFolder}/cmd/csv-insert/csv-insert.go",
-			"args": ["MSFT.csv"],
+			"args": ["MSFT.csv",
+				"--base-directory", "${workspaceFolder}"],
 		},
 		{
 			"name": "svc-server RUN",
@@ -18,7 +19,8 @@
 			"request": "launch",
 			"mode": "debug",
 			"program": "${workspaceFolder}/cmd/chart-server/chart-server.go",
-			"args": ["--port", "8000"],
+			"args": ["--port", "8000",
+				"--base-directory", "${workspaceFolder}"],
 		}
 	]
 }

@@ -8,15 +8,15 @@ import (
 	"github.com/cinar/indicator"
 	"github.com/sunglim/chart-server/internal/database"
 	"github.com/sunglim/chart-server/pkg/cmd/chartserver"
+	"gorm.io/gorm"
 )
 
 // There might be a better pattern for http routing.
 func serverRun(opts *chartserver.Options) error {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		Rsi(w)
-	})
+	db := CreateDatabase(opts.BaseDirectory + "/database.db")
+
 	http.HandleFunc("/rsi", func(w http.ResponseWriter, r *http.Request) {
-		Rsi(w)
+		handleRsi(db.db, w, r)
 	})
 
 	addr := ":" + strconv.Itoa(opts.Port)
@@ -24,9 +24,14 @@ func serverRun(opts *chartserver.Options) error {
 	return http.ListenAndServe(addr, nil)
 }
 
-func Rsi(w http.ResponseWriter) {
-	db := Default()
-	closing := database.GetClosingPrices(db.db)
+func handleRsi(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
+	symbol := r.URL.Query().Get("symbol")
+	if symbol == "" {
+		fmt.Fprintf(w, "No symbol provided.")
+		return
+	}
+
+	closing := database.GetClosingPrices(db, symbol)
 	_, rsi := indicator.Rsi(closing)
-	fmt.Fprintf(w, "Welcome! RSI: %f\n", len(rsi))
+	fmt.Fprintf(w, "Welcome! RSI: %f\n", rsi[len(rsi)-1])
 }
