@@ -18,6 +18,7 @@
 			"request": "launch",
 			"mode": "debug",
 			"program": "${workspaceFolder}/cmd/chart-server/chart-server.go",
+			"args": ["--port", "8000"],
 		}
 	]
 }

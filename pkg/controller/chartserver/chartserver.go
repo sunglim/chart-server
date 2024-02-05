@@ -5,14 +5,16 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/sunglim/chart-server/pkg/cmd/chartserver"
 )
 
-func RunOrDie() {
+func RunOrDie(opts *chartserver.Options) {
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 
 	go func() {
-		err := serverRun()
+		err := serverRun(opts)
 		if err != nil {
 			log.Fatal(err)
 		}
