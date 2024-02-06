@@ -10,7 +10,7 @@
 			"request": "launch",
 			"mode": "debug",
 			"program": "${workspaceFolder}/cmd/csv-insert/csv-insert.go",
-			"args": ["MSFT.csv",
+			"args": ["--csv-file-name", "MSFT.csv",
 				"--base-directory", "${workspaceFolder}"],
 		},
 		{

@@ -1,44 +1,34 @@
 package csvinsert
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
-	"github.com/sunglim/chart-server/pkg/controller/csvinsert"
 )
 
-func NewCommand() *cobra.Command {
-	var rootCmd = &cobra.Command{
-		Use:   "csvinsert",
-		Short: "Insert SVC file",
-		Run: func(cmd *cobra.Command, args []string) {
-			fileName := args[0]
-			err := NewSvcInsert(fileName).Run()
-			if err != nil {
-				panic(err)
-			}
-		},
-	}
+// The application. It includes options and command to execute Run().
+type Options struct {
+	BaseDirectory string `yaml:"base_directory" json:"base_directory"`
+	FileName      string `yaml:"file_name" json:"file_name"`
 
-	return rootCmd
+	cmd *cobra.Command
 }
 
-type SvcInsert struct {
-	fileName string
+func NewOptions() *Options {
+	return &Options{}
 }
 
-func NewSvcInsert(fileName string) *SvcInsert {
-	return &SvcInsert{
-		fileName: fileName,
-	}
+func (o *Options) AddFlags(cmd *cobra.Command) {
+	o.cmd = cmd
+
+	o.cmd.Flags().StringVar(&o.BaseDirectory, "base-directory", ".", "Base directory for the server")
+	o.cmd.Flags().StringVar(&o.FileName, "csv-file-name", "", "CSV file name")
+	o.cmd.MarkFlagRequired(o.FileName)
 }
 
-func (s *SvcInsert) Run() error {
-	err := csvinsert.NewSvcInsert(s.fileName).Run()
-	if err != nil {
-		fmt.Println("Insert SVC file", "error", err)
-	}
+func (o *Options) Parse() error {
+	return o.cmd.Execute()
+}
 
-	fmt.Println("Insert SVC file")
-	return nil
+var InitCommands = &cobra.Command{
+	Use:   "chartinsert",
+	Short: "A chart data inserter",
 }
