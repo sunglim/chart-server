@@ -5,11 +5,6 @@ import (
 	"gorm.io/gorm"
 )
 
-// CreateDatabase creates the database.
-func CreateDatabase() (*gorm.DB, error) {
-	return CreateDatabaseFromFilePath("./database.db")
-}
-
 func CreateDatabaseFromFilePath(filePath string) (*gorm.DB, error) {
 	db, err := gorm.Open(sqlite.Open(filePath), &gorm.Config{})
 	if err != nil {
