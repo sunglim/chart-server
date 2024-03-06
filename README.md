@@ -8,4 +8,4 @@ chart-server is a webserver providing various stock technical analysis indicator
 # Goal
 - [x] Read stock history by CSV file
 - [X] Provide RSI
-- [] Provide MACD
+- [ ] Provide MACD
