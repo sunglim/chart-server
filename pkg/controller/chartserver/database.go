@@ -7,8 +7,6 @@ import (
 	"gorm.io/gorm"
 )
 
-var defaultDatabase = CreateDatabase("./database.db")
-
 func CreateDatabase(path string) *Database {
 	db, err := database.CreateDatabaseFromFilePath(path)
 	if err != nil {
@@ -21,8 +19,4 @@ func CreateDatabase(path string) *Database {
 
 type Database struct {
 	db *gorm.DB
-}
-
-func Default() *Database {
-	return defaultDatabase
 }
